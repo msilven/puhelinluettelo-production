@@ -2,6 +2,7 @@ const express = require('express')
 const morgan = require('morgan')
 //const cors = require('cors')
 const app = express()
+const Person = require('./model/person')
 
 const generateId = () => {
     const id = Math.floor(Math.random() * 1000)
@@ -17,6 +18,9 @@ morgan.token('body', request => {
 })
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
 
+let persons = []
+
+/*
 let persons = [
     {
         id: "1",
@@ -39,6 +43,7 @@ let persons = [
         number: "39-23-6423122"
     }
 ]
+*/
 
 app.get('/', (request,response) => {
     response.send('<h1>Heippa</h1>')
@@ -94,18 +99,28 @@ app.post('/api/persons', (request, response) => {
 })
 
 app.get('/api/persons', (request,response) => {
-    response.json(persons)
+    //response.json(persons)
+
+    Person.find({}).then(persons => {
+        response.json(persons)
+    })
 })
 
 app.get('/api/persons/:id', (request,response) => {
     const id = request.params.id
-	const person = persons.find(person => person.id === id)
+
+    Person.findById(request.params.id).then(person => {
+        response.json(person)
+    }
+/*
+    const person = persons.find(person => person.id === id)
 
 	if(person) {
 		response.json(person)
 	} else {
 		response.status(404).end()
 	}
+*/    
 })
 
 app.put('/api/persons/:id', (request,response) => {
