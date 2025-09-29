@@ -147,10 +147,8 @@ app.delete('/api/persons/:id', (request,response) => {
     const id = request.params.id
 	//persons = persons.filter(person => person.id !== id)
 
-    Person.remove({id: request.params.id}).then(person => {
-        //response.json(person).end()
-        response.status(204).end()
-        
+     Person.findByIdAndDelete(request.params.id).then(person => {
+        response.json(person)
     })
 
 	//response.status(204).end()
