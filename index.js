@@ -102,6 +102,7 @@ app.post('/api/persons', (request, response) => {
 
 app.get('/api/persons', (request,response) => {
     //response.json(persons)
+    console.log('API get all persons')
 
     Person.find({}).then(persons => {
 
