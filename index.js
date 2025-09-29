@@ -92,15 +92,7 @@ app.get('/api/persons/:id', (request,response) => {
     Person.findById(request.params.id).then(person => {
         response.json(person)
     }) 
-/*
-    const person = persons.find(person => person.id === id)
 
-	if(person) {
-		response.json(person)
-	} else {
-		response.status(404).end()
-	}
-*/    
 })
 
 app.put('/api/persons/:id', (request,response) => {
@@ -109,6 +101,15 @@ app.put('/api/persons/:id', (request,response) => {
 
     const person = persons.find(person => person.id === id)
 
+    const person = new Person({
+        name: body.name,
+        number: body.number
+    })
+
+    person.save().then(savedPerson => {
+		response.json(savedPerson)
+	})
+/*
     if(person) {
         person.name = body.name
         person.number = body.number
@@ -116,6 +117,7 @@ app.put('/api/persons/:id', (request,response) => {
     } else {
         response.status(404).end()
     }
+*/
 })
 
 app.delete('/api/persons/:id', (request,response) => {
