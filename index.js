@@ -36,23 +36,8 @@ app.get('/info', (request,response) => {
         const html =    `<p>Phonebook has info for ${personCount} people</p>
                     <p>${dateTimeStr}</p>`
 
-        //console.log(dateTimeStr)
-
         response.send(html)
     })
-    
-    /*
-    const personCount = persons.length
-    const date = new Date()
-
-    const dateTimeStr = `${date.toDateString()} ${date.toTimeString()}`
-    const html =    `<p>Phonebook has info for ${personCount} people</p>
-                    <p>${dateTimeStr}</p>`
-
-    //console.log(dateTimeStr)
-
-    response.send(html)
-    */
 })
 
 app.post('/api/persons', (request, response) => {
@@ -71,7 +56,7 @@ app.post('/api/persons', (request, response) => {
             error: "Number is missing!"
         })
     }
-/*
+
     // If name is already in the list give error
     const nameCheck = persons.find((element) => element.name === body.name)
     if(nameCheck) {
@@ -79,7 +64,7 @@ app.post('/api/persons', (request, response) => {
             error: "Name already exists"
         })
     }
-*/
+
     const person = new Person({
         name: body.name,
         number: body.number
