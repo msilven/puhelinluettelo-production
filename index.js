@@ -29,9 +29,19 @@ app.get('/', (request,response) => {
 app.get('/info', (request,response) => {
 
     Person.find({}).then(persons => {
-        response.json(persons)
-    })
+        const personCount = persons.length
+        const date = new Date()
 
+        const dateTimeStr = `${date.toDateString()} ${date.toTimeString()}`
+        const html =    `<p>Phonebook has info for ${personCount} people</p>
+                    <p>${dateTimeStr}</p>`
+
+        //console.log(dateTimeStr)
+
+        response.send(html)
+    })
+    
+    /*
     const personCount = persons.length
     const date = new Date()
 
@@ -42,6 +52,7 @@ app.get('/info', (request,response) => {
     //console.log(dateTimeStr)
 
     response.send(html)
+    */
 })
 
 app.post('/api/persons', (request, response) => {
