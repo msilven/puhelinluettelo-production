@@ -16,8 +16,7 @@ const argNumber = process.argv[4]
 
 insertMode = (process.argv.length == 3) ? false : true;
 
-//FQ4CpHHHDkHHDuVP
-const url = `mongodb+srv://mikkoasilvennoinen_db_user:${password}@cluster0.qg2epmn.mongodb.net/puhelinluetteloApp?retryWrites=true&w=majority&appName=Cluster0`
+const url = process.env.MONGODB_URI
 
 mongoose.set('strictQuery',false)
 mongoose.connect(url)

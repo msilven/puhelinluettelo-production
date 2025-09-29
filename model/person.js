@@ -4,7 +4,7 @@ mongoose.set('strictQuery',false)
 
 const url = process.env.MONGODB_URI
 
-console.log('Connection to ', url)
+console.log('Connecting to ', url)
 
 mongoose.connect(url)
     .then(result => {
@@ -27,4 +27,4 @@ personSchema.set('toJSON', {
     }
 })
 
-module.exports = mongoose.model('Person', personSchema)
+module.exports = mongoose.model('persons', personSchema)
