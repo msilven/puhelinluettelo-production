@@ -52,6 +52,7 @@ app.get('/', (request,response) => {
 })
 
 app.get('/info', (request,response) => {
+
     const personCount = persons.length
     const date = new Date()
 
@@ -89,15 +90,14 @@ app.post('/api/persons', (request, response) => {
         })
     }
 
-    const person = {
+    const person = new Person{
         name: body.name,
-        number: body.number,
-        id: generateId().toString(),
+        number: body.number
     }
 
-    persons = persons.concat(person)
-
-    response.json(person)
+    person.save().then(savedPerson => {
+        response.json(savedPerson)
+    })
 })
 
 app.get('/api/persons', (request,response) => {
