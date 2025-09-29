@@ -104,6 +104,8 @@ app.get('/api/persons', (request,response) => {
     //response.json(persons)
 
     Person.find({}).then(persons => {
+
+        console.log(persons)
         response.json(persons)
     })
 })
