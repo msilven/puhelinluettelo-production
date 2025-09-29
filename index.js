@@ -67,7 +67,7 @@ app.get('/info', (request,response) => {
 
 app.post('/api/persons', (request, response) => {
     const body = request.body
-
+/*
     // If name is missing give error
     if(!body.name) {
         return response.status(400).json({
@@ -89,15 +89,15 @@ app.post('/api/persons', (request, response) => {
             error: "Name already exists"
         })
     }
-
+*/
     const person = new Person({
         name: body.name,
         number: body.number
     })
 
     person.save().then(savedPerson => {
-        response.json(savedPerson)
-    })
+		response.json(savedPerson)
+	})
 })
 
 app.get('/api/persons', (request,response) => {
