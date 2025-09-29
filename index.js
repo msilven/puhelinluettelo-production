@@ -113,7 +113,7 @@ app.get('/api/persons/:id', (request,response) => {
 
     Person.findById(request.params.id).then(person => {
         response.json(person)
-    }
+    })
 /*
     const person = persons.find(person => person.id === id)
 
