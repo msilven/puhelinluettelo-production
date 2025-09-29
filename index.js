@@ -30,9 +30,7 @@ app.get('/info', (request,response) => {
 
     Person.find({}).then(persons => {
         response.json(persons)
-    }) else {
-        response.status(404).end()
-    }
+    })
 
     const personCount = persons.length
     const date = new Date()
@@ -97,9 +95,7 @@ app.get('/api/persons/:id', (request,response) => {
 
     Person.findById(request.params.id).then(person => {
         response.json(person)
-    }) else {
-		response.status(404).end()
-	}
+    }) 
 /*
     const person = persons.find(person => person.id === id)
 
