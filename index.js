@@ -67,7 +67,7 @@ app.get('/info', (request,response) => {
 
 app.post('/api/persons', (request, response) => {
     const body = request.body
-/*
+
     // If name is missing give error
     if(!body.name) {
         return response.status(400).json({
@@ -81,7 +81,7 @@ app.post('/api/persons', (request, response) => {
             error: "Number is missing!"
         })
     }
-
+/*
     // If name is already in the list give error
     const nameCheck = persons.find((element) => element.name === body.name)
     if(nameCheck) {
@@ -145,9 +145,15 @@ app.put('/api/persons/:id', (request,response) => {
 
 app.delete('/api/persons/:id', (request,response) => {
     const id = request.params.id
-	persons = persons.filter(person => person.id !== id)
+	//persons = persons.filter(person => person.id !== id)
 
-	response.status(204).end()
+    Person.remove({id: request.params.id}).then(person => {
+        //response.json(person).end()
+        response.status(204).end()
+        
+    })
+
+	//response.status(204).end()
 })
 
 const PORT = process.env.PORT || 3001
