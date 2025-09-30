@@ -100,16 +100,21 @@ app.put('/api/persons/:id', (request,response) => {
     const body = request.body
 
     //const person = persons.find(person => person.id === id)
+    const query = { id: request.params.id }
 
     const person = new Person({
         name: body.name,
         number: body.number
     })
 
+    person.findOneAndUpdate(query).then(savedPerson => {
+        console.log(savedPerson)
+    })
+/*
     person.save().then(savedPerson => {
 		response.json(savedPerson)
 	})
-/*
+
     if(person) {
         person.name = body.name
         person.number = body.number
