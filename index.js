@@ -107,7 +107,7 @@ app.put('/api/persons/:id', (request,response) => {
         number: body.number
     })
 
-    person.findOneAndUpdate(query).then(savedPerson => {
+    Person.updateOne(query, person).then(savedPerson => {
         console.log(savedPerson)
     })
 /*
