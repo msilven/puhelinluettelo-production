@@ -102,6 +102,8 @@ app.put('/api/persons/:id', (request,response) => {
     //const person = persons.find(person => person.id === id)
     const query = { id: request.params.id }
 
+    console.log("Query: ", query)
+
     const person = new Person({
         name: body.name,
         number: body.number
