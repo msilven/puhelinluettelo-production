@@ -5,6 +5,8 @@ const morgan = require('morgan')
 //const cors = require('cors')
 const app = express()
 const Person = require('./model/person')
+
+const mongoose = require('mongoose')
 const { ObjectId } = mongoose.Types;
 
 const generateId = () => {
