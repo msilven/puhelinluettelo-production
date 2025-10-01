@@ -6,9 +6,6 @@ const morgan = require('morgan')
 const app = express()
 const Person = require('./model/person')
 
-const mongoose = require('mongoose')
-const { ObjectId } = mongoose.Types;
-
 const generateId = () => {
     const id = Math.floor(Math.random() * 1000)
     return id
@@ -92,9 +89,17 @@ app.get('/api/persons', (request,response) => {
 app.get('/api/persons/:id', (request,response) => {
     const id = request.params.id
 
-    Person.findById(request.params.id).then(person => {
-        response.json(person)
-    }) 
+    Person.findById(id).then(person => {
+        if(person) {
+            response.json(person)
+        } else {
+            response.status(404).end()
+        }
+    })
+    .catch(error => {
+        console.log(error)
+        response.status(400).send({error: 'malformatted id'})
+    })
 
 })
 
@@ -104,7 +109,10 @@ app.put('/api/persons/:id', (request,response) => {
 
     //const person = persons.find(person => person.id === id)
     //const query = { id: `${request.params.id}` }
-    const query = { _id: new ObjectId(request.params.id) }
+
+    Person.findById(id).then(person => {
+        response.json(person)
+    }) 
 
     console.log("Query: ", query)
 
