@@ -101,7 +101,7 @@ app.put('/api/persons/:id', (request,response) => {
 
     //const person = persons.find(person => person.id === id)
     //const query = { id: `${request.params.id}` }
-    const query = { id: request.params.id }
+    const query = { id: { $eq: `${request.params.id}` } }
 
     console.log("Query: ", query)
 
