@@ -107,36 +107,23 @@ app.put('/api/persons/:id', (request,response) => {
     const id = request.params.id
     const body = request.body
 
-    //const person = persons.find(person => person.id === id)
-    //const query = { id: `${request.params.id}` }
+     Person.findById(id).then(person => {
+        if(!person) {
+            return response.status(404).end()
+        }
 
-    Person.findById(id).then(person => {
-        response.json(person)
-    }) 
-
-    console.log("Query: ", query)
-
-    const person = new Person({
-        name: body.name,
-        number: body.number
-    })
-
-    Person.updateOne(query, { $set: {name: body.name, number: body.number}}).then(savedPerson => {
-        console.log(savedPerson)
-    })
-/*
-    person.save().then(savedPerson => {
-		response.json(savedPerson)
-	})
-
-    if(person) {
-        person.name = body.name
+        person.name = body.name,
         person.number = body.number
-        response.json(person)    
-    } else {
-        response.status(404).end()
-    }
-*/
+
+        person.save().then(savedPerson => {
+		    response.json(savedPerson)
+	    })
+    })
+    .catch(error => {
+        console.log(error)
+        next(error)
+    })
+
 })
 
 app.delete('/api/persons/:id', (request,response) => {
