@@ -5,6 +5,7 @@ const morgan = require('morgan')
 //const cors = require('cors')
 const app = express()
 const Person = require('./model/person')
+const { ObjectId } = mongoose.Types;
 
 const generateId = () => {
     const id = Math.floor(Math.random() * 1000)
@@ -101,7 +102,7 @@ app.put('/api/persons/:id', (request,response) => {
 
     //const person = persons.find(person => person.id === id)
     //const query = { id: `${request.params.id}` }
-    const query = { id: { $eq: `${request.params.id}` } }
+    const query = { _id: new ObjectId(request.params.id)
 
     console.log("Query: ", query)
 
@@ -110,7 +111,7 @@ app.put('/api/persons/:id', (request,response) => {
         number: body.number
     })
 
-    Person.updateOne(query, person).then(savedPerson => {
+    Person.updateOne(query, { $set: {name: body.name, number: body.number}}).then(savedPerson => {
         console.log(savedPerson)
     })
 /*
