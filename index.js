@@ -75,7 +75,7 @@ app.post('/api/persons', (request, response) => {
 	})
 })
 
-app.get('/api/persons', (request,response) => {
+app.get('/api/persons', (request,response,next) => {
     //response.json(persons)
     console.log('API get all persons')
 
@@ -84,6 +84,7 @@ app.get('/api/persons', (request,response) => {
         console.log(persons)
         response.json(persons)
     })
+    .catch(error => next(error))
 })
 
 app.get('/api/persons/:id', (request,response, next) => {
