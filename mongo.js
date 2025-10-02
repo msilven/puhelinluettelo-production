@@ -13,7 +13,7 @@ if(process.argv.length > 3 && process.argv.length < 5) {
 //const password = process.argv[2]
 const argName = process.argv[3]
 const argNumber = process.argv[4]
-const insertMode = (process.argv.length == 3) ? false : true
+const insertMode = (process.argv.length === 3) ? false : true
 const url = process.env.MONGODB_URI
 
 mongoose.set('strictQuery',false)
@@ -44,7 +44,7 @@ if(insertMode) {
     result.forEach(person => {
       console.log(`${person['name']} ${person['number']}`)
     })
-    
+
     mongoose.connection.close()
   })
 }

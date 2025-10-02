@@ -144,7 +144,7 @@ app.delete('/api/persons/:id', (request,response, next) => {
 })
 
 const unknownEndpoint = (request, response) => {
-  response.status(404).send({ error: 'Unknown endpoint'})
+  response.status(404).send({ error: 'Unknown endpoint' })
 }
 
 app.use(unknownEndpoint)
@@ -154,8 +154,8 @@ const errorHandler = (error, request, response, next) => {
 
   // Handle cast errors
   if(error.name === 'CastError') {
-    return response.status(400).send({ error: 'malformatted id'})
-    
+    return response.status(400).send({ error: 'malformatted id' })
+
   // Handle validation errors
   } else if(error.name === 'ValidationError') {
     return response.status(400).json({ error: error.message })
