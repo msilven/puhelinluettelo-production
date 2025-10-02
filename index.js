@@ -81,6 +81,7 @@ app.post('/api/persons', (request, response, next) => {
         console.log("Error output: ", error)
         next(error)
     })
+})
 
 app.get('/api/persons', (request,response,next) => {
     //response.json(persons)
