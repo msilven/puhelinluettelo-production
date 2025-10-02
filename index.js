@@ -26,7 +26,7 @@ app.get('/', (request,response) => {
     response.send('<h1>Heippa</h1>')
 })
 
-app.get('/info', (request,response) => {
+app.get('/info', (request,response, next) => {
 
     Person.find({}).then(persons => {
         const personCount = persons.length
@@ -38,9 +38,13 @@ app.get('/info', (request,response) => {
 
         response.send(html)
     })
+    .catch(error => {
+        console.log("Error output: ", error)
+        next(error)
+    })
 })
 
-app.post('/api/persons', (request, response) => {
+app.post('/api/persons', (request, response, next) => {
     const body = request.body
 
     // If name is missing give error
@@ -73,7 +77,10 @@ app.post('/api/persons', (request, response) => {
     person.save().then(savedPerson => {
 		response.json(savedPerson)
 	})
-})
+    .catch(error => {
+        console.log("Error output: ", error)
+        next(error)
+    })
 
 app.get('/api/persons', (request,response,next) => {
     //response.json(persons)
@@ -84,7 +91,10 @@ app.get('/api/persons', (request,response,next) => {
         console.log(persons)
         response.json(persons)
     })
-    .catch(error => next(error))
+    .catch(error => {
+        console.log("Error output: ", error)
+        next(error)
+    })
 })
 
 app.get('/api/persons/:id', (request,response, next) => {
@@ -98,13 +108,13 @@ app.get('/api/persons/:id', (request,response, next) => {
         }
     })
     .catch(error => {
-        console.log(error)
+        console.log("Error output: ", error)
         next(error)
     })
 
 })
 
-app.put('/api/persons/:id', (request,response) => {
+app.put('/api/persons/:id', (request,response,next) => {
     const id = request.params.id
     const body = request.body
 
@@ -121,18 +131,22 @@ app.put('/api/persons/:id', (request,response) => {
 	    })
     })
     .catch(error => {
-        console.log(error)
+        console.log("Error output: ", error)
         next(error)
     })
 
 })
 
-app.delete('/api/persons/:id', (request,response) => {
+app.delete('/api/persons/:id', (request,response, next) => {
     const id = request.params.id
 	//persons = persons.filter(person => person.id !== id)
 
      Person.findByIdAndDelete(request.params.id).then(person => {
         response.json(person)
+    })
+    .catch(error => {
+        console.log("Error output: ", error)
+        next(error)
     })
 
 	//response.status(204).end()
