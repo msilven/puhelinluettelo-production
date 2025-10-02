@@ -130,12 +130,11 @@ app.put('/api/persons/:id', (request,response,next) => {
         person.save().then(savedPerson => {
 		    response.json(savedPerson)
 	    })
+         .catch(error => {
+            console.log("Error output: ", error)
+            next(error)
+        })
     })
-    .catch(error => {
-        console.log("Error output: ", error)
-        next(error)
-    })
-
 })
 
 app.delete('/api/persons/:id', (request,response, next) => {
