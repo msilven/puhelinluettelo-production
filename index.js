@@ -139,17 +139,14 @@ app.put('/api/persons/:id', (request,response,next) => {
 
 app.delete('/api/persons/:id', (request,response, next) => {
     const id = request.params.id
-	//persons = persons.filter(person => person.id !== id)
 
      Person.findByIdAndDelete(request.params.id).then(person => {
-        response.json(person)
+        response.status(204).end()
     })
     .catch(error => {
         console.log("Error output: ", error)
         next(error)
     })
-
-	//response.status(204).end()
 })
 
 const unknownEndpoint = (request, response) => {
